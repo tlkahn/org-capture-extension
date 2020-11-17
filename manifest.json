@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Org Capture",
+  "version": "0.2.1",
+  "description": "A helper for capturing things via org-protocol in emacs: First, set up: http://orgmode.org/worg/org-contrib/org-protocol.html",
+  "homepage_url": "https://github.com/sprig/org-capture-extension",
+
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+
+  "permissions": ["activeTab", "storage", "http://*/:8080"],
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "browser_action": {
+    // "default_icon": "org-mode-unicorn.png"
+  },
+
+  // "icons": { "16": "16.png",
+  //      "48": "48.png",
+  //     "128": "128.png" },
+
+  "commands": {
+    "_execute_browser_action": {
+      "description": "Capture current page with org-capture",
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      }
+    }
+  }
+}

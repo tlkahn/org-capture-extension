@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Org Capture Settings</title>
+        <style>
+         body: { padding: 10px; }
+        </style>
+    </head>
+
+    <body>
+
+        <table>
+            <tr>
+                <td>
+                    Get notified after captures?
+                </td>
+                <td>
+                    <input id="overlay" type="checkbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Selected Template
+                </td>
+                <td>
+                    <input id="selTemplate" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Unselected Template
+                </td>
+                <td>
+                    <input id="unselTemplate">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Use New-Style links? (Recommended for Org-Mode 9.0+)
+                </td>
+                <td>
+                    <input id="useNewStyle" type="checkbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Debug (will produce logging messages to console)
+                </td>
+                <td>
+                    <input id="debug" type="checkbox" />
+                </td>
+		<td><bold>Note:</bold> You will have to enable "Preserve Log" in the console in order to see the logged messages.
+	    </tr>
+        </table>
+
+        <div id="status"></div>
+        <button id="save">Save</button>
+
+        <script src="options.js"></script>
+    </body>
+</html>
