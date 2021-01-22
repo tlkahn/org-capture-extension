@@ -10,7 +10,7 @@
     "scripts": ["background.js"]
   },
 
-  "permissions": ["activeTab", "storage", "http://*/:8080"],
+  "permissions": ["downloads", "activeTab", "storage", "http://*/:8080"],
 
   "options_ui": {
     "page": "options.html"

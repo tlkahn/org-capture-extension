@@ -42,47 +42,47 @@ chrome.runtime.onInstalled.addListener(function (details) {
       });
 });
 
+function fetchOrg(req) {
+  const url = `http://vimaladevasimha.com:5000/`;
+  let formData = new FormData();
+  Object.keys(req).forEach(k => {
+    formData.append(k, req[k]);
+  })
+  return fetch(url, {
+    method: 'POST',
+    body: formData
+  }).then(res => {
+    return res.text()
+  }).then(data => {
+    return data;
+    // sendResponse(data);
+    // chrome.browserAction.setBadgeText({text: ""});
+  }).catch(e => {
+    console.error(e);
+  });
+}
+
 chrome.browserAction.onClicked.addListener(function (tab) {
   chrome.tabs.executeScript({file: "capture.js"});
 });
 
+// chrome.downloads.onDeterminingFilename.addListener(function (item, suggest) {
+//   suggest({filename: `./${item.filename}.org`});
+// });
+
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function (request, sender, sendResponse) {
     chrome.browserAction.setBadgeText({text: "@@"});
-    let html = request.html;
-    if (html) {
-      fetch('http://localhost:8080', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/text',
-          'Content-Type': 'application/text'
-        },
-        body: request.url + '\n' + html
-      }).then(res=>{
-        return res.text()
-      }).then(data=>{
-        sendResponse(data);
-        chrome.browserAction.setBadgeText({text: ""});
-      }).catch(e=>{
-        console.error(e);
-      })
-    }
-    else {
-      fetch('http://localhost:8080/fullpage', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/text',
-          'Content-Type': 'application/text'
-        },
-        body: request.url
-      }).then(res=>{
-        return res.text()
-      }).then(data=>{
-        sendResponse(data);
-        chrome.browserAction.setBadgeText({text: ""});
-      }).catch(e=>{
-        console.error(e);
-      })
-    }
+    // const {html, url, sig} = request;
+    fetchOrg(request).then(res => {
+      chrome.browserAction.setBadgeText({text: ""});
+      let blob = new Blob([res], {type: "org/plain"});
+      var url = URL.createObjectURL(blob);
+      chrome.downloads.download({
+        url: url,
+        filename: request.filename
+      });
+      console.log(res);
+    })
     return true;
   });
