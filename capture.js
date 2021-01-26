@@ -60,6 +60,7 @@
             else {
               this.selection_html = div.innerHTML;
             }
+            this.selection_html += `\n${this.location.href}`
             chrome.runtime.sendMessage({
                 html: this.selection_html,
                 url: this.location.href,
